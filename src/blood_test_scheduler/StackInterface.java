@@ -5,8 +5,8 @@
 package blood_test_scheduler;
 
 /**
- *
- * @author andre
+ * @author AndrePontDeAnda - x23164034
+ * 15/03/2025
  */
 public interface StackInterface {
     public void push(Object newItem);

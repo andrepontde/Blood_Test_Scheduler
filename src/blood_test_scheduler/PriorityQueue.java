@@ -7,8 +7,8 @@ package blood_test_scheduler;
 import java.util.ArrayList;
 
 /**
- *
- * @author AndrePontDeAnda
+ * @author AndrePontDeAnda - x23164034
+ * 15/03/2025
  */
 public class PriorityQueue implements PQInterface{
     ArrayList<Person> people;

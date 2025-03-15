@@ -5,8 +5,8 @@
 package blood_test_scheduler;
 
 /**
- *
- * @author AndrePontDeAnda
+ * @author AndrePontDeAnda - x23164034
+ * 15/03/2025
  */
 public class SinglyLinked_List implements LinkedListInterface {
     int size;
