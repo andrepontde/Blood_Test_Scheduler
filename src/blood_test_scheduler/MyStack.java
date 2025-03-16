@@ -11,6 +11,9 @@ import java.util.ArrayList;
  * 15/03/2025
  */
 public class MyStack implements StackInterface{
+    
+    //The stack class will be used to store only the last 5 people that have not attended their appointment.
+    
     ArrayList<Person> attendance;
     
     public MyStack() {
@@ -66,7 +69,7 @@ public class MyStack implements StackInterface{
        }else{
            for (int i = 0; i < attendance.size(); i++){
                Person temp = attendance.get(i);
-               details = details + temp.toString();
+               details = details + temp.toString() + "\n";
            }
        }return details;
     }

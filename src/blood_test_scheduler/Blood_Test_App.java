@@ -15,16 +15,10 @@ public class Blood_Test_App {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        LinkedListInterface SLL = new SinglyLinked_List();
         
-        Person temp = new Person("Andre", "Pont", "ap@gmail.com", 22, "high");
-        Person temp2 = new Person("Adrian", "Rey", "ar@gmail.com", 23, "low");
-        
-        
-        SLL.add(temp, 1);
-        SLL.add(temp2);
-        
-        System.out.println(SLL.get(1));
+        SchedulerGUI SG = new SchedulerGUI();
+        SG.setVisible(true);
+        // Assuming PQ is your priority queue instance
         
         
     }

@@ -9,6 +9,9 @@ package blood_test_scheduler;
  * 15/03/2025
  */
 public interface StackInterface {
+    
+    //Interface made to define functions needed in the Stack functionality for the MyStack class 
+    
     public void push(Object newItem);
     public Object pop();    
     public Object peek();

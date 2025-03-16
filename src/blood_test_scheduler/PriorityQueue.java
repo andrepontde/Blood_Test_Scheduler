@@ -7,62 +7,95 @@ package blood_test_scheduler;
 import java.util.ArrayList;
 
 /**
- * @author AndrePontDeAnda - x23164034
- * 15/03/2025
+ * @author AndrePontDeAnda - x23164034 15/03/2025
  */
-public class PriorityQueue implements PQInterface{
+public class PriorityQueue implements PQInterface {
+
+    //The priority queue will be used to store a list of patients waiting to be attended, and their priority 
+    //will be taken into account as well.
     ArrayList<Person> people;
 
     public PriorityQueue() {
         people = new ArrayList<>();
     }
-    
-    public int getIndex(String priority){
+
+    public int getValues(Person person) {
+        //I decided to make the priority a score system for easier comparison when getting the index of a patient.
+
+        int priVal = 0;
+
+        //Age factor, Older people get higher priority
+        priVal += person.getAge();
+
+        //Urgency level factor
+        switch (person.getPriority().toLowerCase()) {
+            case "urgent":
+                priVal += 50;
+                break;
+            case "medium":
+                priVal += 30;
+                break;
+            case "low":
+                priVal += 10;
+                break;
+        }
+
+        //Hospital ward status, the most points are given to who comes from the hospital ward.
+        if (person.isHospitalWard()) {
+            priVal += 100;
+        }
+
+        return priVal;
+    }
+
+    //Finds the index according to the priority score
+    public int getIndex(Person person) {
+        int priorityVal = getValues(person);
         int index;
         
-        
-//        low, medium, urgent
-//                if curr = low & priority = medium
-//        m
-//                        
-//        0h, 1m, 2m, 3m, 4l, 5l  
-//        
-
-        for (index = 0; index < people.size(); index++){
+        for (index = 0; index < people.size(); index++) {
             Person current = people.get(index);
+            int currentVal = getValues(current);
             
-            if (current.getPriority().equalsIgnoreCase("medium") && priority.equalsIgnoreCase("high")){
-                return index;
-            }else if (current.getPriority().equalsIgnoreCase("low") && priority.equalsIgnoreCase("medium")){
+            if (priorityVal > currentVal) {
                 return index;
             }
         }
-        
+
+        //Return if there was no lower score than current value
         return index;
     }
-    
-    public void enqueue(String priority, Object element){
-        int index = getIndex(priority);
-        people.add(index, (Person)element);
+
+    @Override
+    public void enqueue(Object element) {
+        //The enqueu function does not take as a parameter the priority since it is already included in the Person object.
+        Person temp = (Person) element;
+        int index = getIndex(temp);
+        people.add(index, (Person) element);
     }
-    
-    
-    public int size(){
+
+    @Override
+    public int size() {
         return people.size();
     }
-    
-    public boolean isEmpty(){
+
+    @Override
+    public boolean isEmpty() {
         return people.isEmpty();
     }
-    
-    public Object dequeue(){
+
+    @Override
+    public Object dequeue() {
         return people.remove(0);
     }
-    public String printPQueue(){
+
+    //Return a string of the people that are waiting to be attended
+    @Override
+    public String printPQueue() {
         String details = "";
-        
+
         for (int i = 0; i < people.size(); i++) {
-            details = details + people.get(i).toString();
+            details = details + people.get(i).toString() + "\n";
         }
 
         return details;

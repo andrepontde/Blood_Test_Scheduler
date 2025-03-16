@@ -9,6 +9,9 @@ package blood_test_scheduler;
  * 15/03/2025
  */
 public interface LinkedListInterface {
+    
+    //Interface made to define functions needed in the linked List functionality for the SinglyLinked_List class 
+    
     public boolean isEmpty();
     public int size();
     public Object get(int index);

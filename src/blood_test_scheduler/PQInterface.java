@@ -9,7 +9,10 @@ package blood_test_scheduler;
  * 15/03/2025
  */
 public interface PQInterface {
-    public void enqueue(String key, Object element);
+
+    //Interface made to define functions needed in the Priority Queue functionality for the PriorityQueue Class 
+    
+    public void enqueue(Object element);
     public int size();
     public boolean isEmpty();
     public Object dequeue();

@@ -9,7 +9,12 @@ package blood_test_scheduler;
  * 15/03/2025
  */
 public class Person {
-    private String fName, lName, email;
+    
+    //The Person class will be used as a Node for every ADT, for sinly linked lists it uses the next and function as well
+    //It stores all of the nessesary data for a patient
+    
+    private String fName, lName, email, GPDetails;
+    private boolean hospitalWard;
     private int age;
     private String priority;
     private Person next;
@@ -23,17 +28,22 @@ public class Person {
     priority = "low";
     }
     
-    public Person(String fName, String lName, String email, int age, String priority) {
+    public Person(String fName, String lName, String email, int age, String priority, boolean ward) {
         this.fName = fName;
         this.lName = lName;
         this.email = email;
         this.age = age;
         this.priority = priority;
+        hospitalWard = ward;
     }
 
     public Person(Person next, Person prev) {
         this.next = next;
         this.prev = prev;
+    }
+
+    public void setHospitalWard(boolean HospitalWard) {
+        this.hospitalWard = HospitalWard;
     }
 
     public void setfName(String fName) {
@@ -47,7 +57,10 @@ public class Person {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
+    public void setGPDetails(String GPDetails) {
+        this.GPDetails = GPDetails;
+    }
     public void setAge(int age) {
         this.age = age;
     }
@@ -62,6 +75,10 @@ public class Person {
 
     public void setPrev(Person prev) {
         this.prev = prev;
+    }
+
+    public boolean isHospitalWard() {
+        return hospitalWard;
     }
 
     public String getfName() {
@@ -80,6 +97,10 @@ public class Person {
         return age;
     }
 
+    public String getGPDetails() {
+        return GPDetails;
+    }
+
     public String getPriority() {
         return priority;
     }
@@ -94,8 +115,10 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" + "fName=" + fName + ", lName=" + lName + ", email=" + email + ", age=" + age + ", priority=" + priority + '}';
+        return fName + ", " + lName + ", email=" + email + ", GPDetails=" + GPDetails + ", hospitalWard:" + hospitalWard + ", age:" + age + ", priority:" + priority;
     }
+
+    
     
     
     
