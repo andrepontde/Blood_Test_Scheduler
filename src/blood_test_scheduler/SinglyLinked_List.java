@@ -7,14 +7,12 @@ package blood_test_scheduler;
 import java.io.Serializable;
 
 /**
- * @author AndrePontDeAnda - x23164034
- * 15/03/2025
+ * @author AndrePontDeAnda - x23164034 15/03/2025
  */
 public class SinglyLinked_List implements LinkedListInterface, Serializable {
-    
+
     //This class will be used to store the data of every single patient, regardless of their priority or attendance.
     //Uses all the same functions for the SLL's covered in class
-    
     int size;
     Person curr, prev, head;
 
@@ -24,12 +22,12 @@ public class SinglyLinked_List implements LinkedListInterface, Serializable {
         prev = null;
         head = null;
     }
-    
+
     @Override
     public boolean isEmpty() {
         return size == 0;
     }
-    
+
     @Override
     public int size() {
         return size;
@@ -44,16 +42,16 @@ public class SinglyLinked_List implements LinkedListInterface, Serializable {
     @Override
     public void remove(int index) {
         if (size == 0) {
-    
+
             return;
         }
-        
+
         if (index == 0) {
             head = head.getNext();
         } else {
-            setCurrent(index); 
+            setCurrent(index);
             if (curr != null && prev != null) {
-                prev.setNext(curr.getNext()); 
+                prev.setNext(curr.getNext());
             }
         }
         size--;
@@ -77,15 +75,15 @@ public class SinglyLinked_List implements LinkedListInterface, Serializable {
 
         if (size == 0) {
             head = temp;
-        } else if (index == 0) { 
+        } else if (index == 0) {
             temp.setNext(head);
             head = temp;
         } else {
-            setCurrent(index); 
+            setCurrent(index);
             if (prev != null) {
                 prev.setNext(temp);
             }
-            temp.setNext(curr); 
+            temp.setNext(curr);
         }
         size++;
     }
@@ -96,22 +94,39 @@ public class SinglyLinked_List implements LinkedListInterface, Serializable {
         if (size == 0) {
             head = temp;
         } else {
-            setCurrent(size - 1); 
-            curr.setNext(temp); 
+            setCurrent(size - 1);
+            curr.setNext(temp);
         }
         size++;
     }
 
+    //iterative print function, replaced by recursive alternative
+//    @Override
+//    public String printList() {
+//        String details = "";
+//        curr = head;
+//        
+//        while (curr != null) {
+//            details = details + curr.toStringWgp() + "\n";
+//            curr = curr.getNext();
+//        }
+//
+//        return details;
+//    }
+    
+    
+    public String recFunc(int x) {
+        //Base case to stop the recursion when all elements have been fetched
+        if (x == size()) {
+            return "";
+        }
+        Person temp = (Person) get(x);
+        return temp.toStringWgp() + "\n" + recFunc(x + 1);
+    }
+
     @Override
     public String printList() {
-        String details = "";
-        curr = head;
-        
-        while (curr != null) {
-            details = details + curr.toStringWgp() + "\n";
-            curr = curr.getNext();
-        }
-
-        return details;
+        return recFunc(0); //Start recursion from 0
     }
+
 }

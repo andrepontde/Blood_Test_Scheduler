@@ -168,7 +168,9 @@ public class SchedulerGUI extends javax.swing.JFrame {
         });
 
         displayTA.setColumns(20);
+        displayTA.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         displayTA.setRows(5);
+        displayTA.setText("Welcome to my Blood Test Scheduler!");
         jScrollPane1.setViewportView(displayTA);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -300,6 +302,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_pqDisplayBTNActionPerformed
 
     private void dequeueBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dequeueBTNActionPerformed
+        //Dequeue an item from the queue and prompt the user for attendance value
         if (PQ.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No patients in the queue");
             return;
@@ -308,15 +311,17 @@ public class SchedulerGUI extends javax.swing.JFrame {
 
         String answer = JOptionPane.showInputDialog(null, "Did the patient " + temp.getfName() + " attend their appointment? (Yes/No)");
 
+        //If value = no, then push the user into the blacklist (Stack).
         if (answer != null) {
             if (answer.equalsIgnoreCase("no")) {
                 ST.push(temp);
                 JOptionPane.showMessageDialog(null, temp.getfName() + " Patient absence noted");
 
+                //Save Stack and Queue files after addittion
                 try {
                     File s;
                     s = new File("AStack.dat");
-                    
+
                     FileOutputStream fStream;
                     ObjectOutputStream oStream;
 
@@ -341,6 +346,23 @@ public class SchedulerGUI extends javax.swing.JFrame {
 
             } else {
                 JOptionPane.showMessageDialog(null, temp.getfName() + " attended their appointment.");
+                try {
+                    //Save just queue after dequeueing a patient.
+                    FileOutputStream fStream;
+                    ObjectOutputStream oStream;
+                    File q;
+                    q = new File("PriorityQueue.dat");
+
+                    fStream = new FileOutputStream(q);
+                    oStream = new ObjectOutputStream(fStream);
+
+                    oStream.writeObject(PQ);
+                    oStream.close();
+
+                    System.out.println("Queue updated\n");
+                } catch (IOException e) {
+                    System.out.println("Queue was not saved" + e);
+                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "No response recorded. The patient was not processed.");
@@ -348,12 +370,13 @@ public class SchedulerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_dequeueBTNActionPerformed
 
     private void sllDisplayBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sllDisplayBTNActionPerformed
-        // TODO add your handling code here:
+
         displayTA.setText("Patients in order of arrival: \n");
         displayTA.append(SLL.printList());
     }//GEN-LAST:event_sllDisplayBTNActionPerformed
 
     public void noShowRec(StackInterface theStack, int count) {
+        //Recursive function to get people that did not show up to the appointment using a Stack.
         if (count == 0 || theStack.isEmpty()) {
             return;
         }
@@ -366,11 +389,14 @@ public class SchedulerGUI extends javax.swing.JFrame {
         StackInterface tempStack = new MyStack();
         StackInterface backupStack = new MyStack();
 
+        //Copy the stack twice to have a way of retrieving the patients after popping the values in the Stack.
         while (!ST.isEmpty()) {
             Person temp = (Person) ST.pop();
             tempStack.push(temp);
             backupStack.push(temp);
         }
+
+        //Call recursive function and append data to Text area
         displayTA.setText("Patients that did not show up: \n");
         noShowRec(tempStack, 5);
 

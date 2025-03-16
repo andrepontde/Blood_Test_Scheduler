@@ -118,7 +118,7 @@ public class Person implements Serializable{
 
     @Override
     public String toString() {
-        return fName + ", " + lName + ", email=" + email + ", hospitalWard:" + hospitalWard + ", age:" + age + ", priority:" + priority;
+        return  lName + ", " +fName +", email=" + email + ", hospitalWard:" + hospitalWard + ", age:" + age + ", priority:" + priority;
     }
     
     
