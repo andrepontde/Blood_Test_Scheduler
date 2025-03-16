@@ -4,12 +4,13 @@
  */
 package blood_test_scheduler;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * @author AndrePontDeAnda - x23164034 15/03/2025
  */
-public class PriorityQueue implements PQInterface {
+public class PriorityQueue implements PQInterface, Serializable{
 
     //The priority queue will be used to store a list of patients waiting to be attended, and their priority 
     //will be taken into account as well.
@@ -99,7 +100,7 @@ public class PriorityQueue implements PQInterface {
         String details = "";
 
         for (int i = 0; i < people.size(); i++) {
-            details = details + people.get(i).toString() + "\n";
+            details = details + (i+1)+ " " +people.get(i).toString() + "\n";
         }
 
         return details;

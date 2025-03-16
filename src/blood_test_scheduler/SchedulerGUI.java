@@ -4,13 +4,12 @@
  */
 package blood_test_scheduler;
 
-import blood_test_scheduler.LinkedListInterface;
-import blood_test_scheduler.MyStack;
-import blood_test_scheduler.PQInterface;
-import blood_test_scheduler.Person;
-import blood_test_scheduler.PriorityQueue;
-import blood_test_scheduler.SinglyLinked_List;
-import blood_test_scheduler.StackInterface;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -26,7 +25,7 @@ import javax.swing.JTextField;
 public class SchedulerGUI extends javax.swing.JFrame {
 
     LinkedListInterface SLL;
-    PQInterface PQ;
+    static PQInterface PQ;
     StackInterface ST;
 
     /**
@@ -38,50 +37,69 @@ public class SchedulerGUI extends javax.swing.JFrame {
         PQ = new PriorityQueue();
         ST = new MyStack();
         Loadpatients();
-
     }
 
     public void Loadpatients() {
-        SLL.add(new Person("Andre", "Pont", "ap@gmail.com", "Dr. Smith", 22, "urgent", false));
-        SLL.add(new Person("Adrian", "Rey", "ar@gmail.com", "Dr. Johnson", 23, "low", true));
-        SLL.add(new Person("Elena", "Martinez", "em@gmail.com", "Dr. Thompson", 67, "medium", false));
-        SLL.add(new Person("Lucas", "Fernandez", "lf@gmail.com", "Dr. Garcia", 45, "low", true));
-        SLL.add(new Person("Emma", "Thompson", "et@gmail.com", "Dr. Brown", 55, "urgent", false));
-        SLL.add(new Person("Jorge", "Lopez", "jl@gmail.com", "Dr. White", 30, "medium", true));
-        SLL.add(new Person("Sophia", "Garcia", "sg@gmail.com", "Dr. Wilson", 70, "low", false));
-        SLL.add(new Person("Daniel", "Smith", "ds@gmail.com", "Dr. Martinez", 60, "urgent", true));
-        SLL.add(new Person("Olivia", "Brown", "ob@gmail.com", "Dr. Taylor", 40, "medium", false));
-        SLL.add(new Person("Henry", "Wilson", "hw@gmail.com", "Dr. Clark", 50, "low", true));
-        SLL.add(new Person("Isabella", "Hernandez", "ih@gmail.com", "Dr. Hernandez", 33, "urgent", false));
-        SLL.add(new Person("William", "Taylor", "wt@gmail.com", "Dr. Lopez", 28, "medium", true));
-        SLL.add(new Person("Charlotte", "White", "cw@gmail.com", "Dr. Gonzalez", 72, "low", false));
-        SLL.add(new Person("James", "Clark", "jc@gmail.com", "Dr. Carter", 48, "urgent", true));
-        SLL.add(new Person("Lucas", "Miller", "lm@gmail.com", "Dr. Adams", 36, "medium", false));
+        FileInputStream fStream;
+        ObjectInputStream oStream;
+        try {
+            File l;
+            l = new File("LinkedList.dat");
+            File q;
+            q = new File("PriorityQueue.dat");
+            File s;
+            s = new File("AStack.dat");
+            fStream = new FileInputStream(l);
+            oStream = new ObjectInputStream(fStream);
+            SLL = (LinkedListInterface) oStream.readObject();
+            oStream.close();
 
+            fStream = new FileInputStream(q);
+            oStream = new ObjectInputStream(fStream);
 
-        for (int i = 0; i < SLL.size(); i++) {
-            Person temp = (Person) SLL.get(i);
-            PQ.enqueue(temp);
+            PQ = (PQInterface) oStream.readObject();
+            oStream.close();
+
+            fStream = new FileInputStream(s);
+            oStream = new ObjectInputStream(fStream);
+
+            ST = (StackInterface) oStream.readObject();
+            oStream.close();
+
+            System.out.println("Patients fetched correctly");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Unable to fetch patients, error:" + e);
         }
 
-//ADD RECURSIVE FUNCTION HERE TO ADD TO PQ        
-//            public static void recFunc(SLList myList, int x){
-//        if (x != 1){
-//            recFunc(myList, x-1);
-//            Node temp = (Node)myList.get(x); 
-//            System.out.println(temp.toString());
-//        }else{
-//            Node temp = (Node)myList.get(1);
-//            System.out.println(temp.toString());
-//        }
-//    }
-//    
-//    public static void printList(SLList myList){
-//        int s = myList.size();
-//        
-//        recFunc(myList, s);
-//        
-//    }
+        //Added default values for user testing 
+//        SLL.add(new Person("Andre", "Pont", "ap@gmail.com", "Dr. Smith", 22, "urgent", false));
+//        SLL.add(new Person("Adrian", "Rey", "ar@gmail.com", "Dr. Johnson", 23, "low", true));
+//        SLL.add(new Person("Elena", "Martinez", "em@gmail.com", "Dr. Thompson", 67, "medium", false));
+//        SLL.add(new Person("Lucas", "Fernandez", "lf@gmail.com", "Dr. Garcia", 45, "low", true));
+//        SLL.add(new Person("Emma", "Thompson", "et@gmail.com", "Dr. Brown", 55, "urgent", false));
+//        SLL.add(new Person("Jorge", "Lopez", "jl@gmail.com", "Dr. White", 30, "medium", true));
+//        SLL.add(new Person("Sophia", "Garcia", "sg@gmail.com", "Dr. Wilson", 70, "low", false));
+//        SLL.add(new Person("Daniel", "Smith", "ds@gmail.com", "Dr. Martinez", 60, "urgent", true));
+//        SLL.add(new Person("Olivia", "Brown", "ob@gmail.com", "Dr. Taylor", 40, "medium", false));
+//        SLL.add(new Person("Henry", "Wilson", "hw@gmail.com", "Dr. Clark", 50, "low", true));
+//        SLL.add(new Person("Isabella", "Hernandez", "ih@gmail.com", "Dr. Hernandez", 33, "urgent", false));
+//        SLL.add(new Person("William", "Taylor", "wt@gmail.com", "Dr. Lopez", 28, "medium", true));
+//        SLL.add(new Person("Charlotte", "White", "cw@gmail.com", "Dr. Gonzalez", 72, "low", false));
+//        SLL.add(new Person("James", "Clark", "jc@gmail.com", "Dr. Carter", 48, "urgent", true));
+//        SLL.add(new Person("Lucas", "Miller", "lm@gmail.com", "Dr. Adams", 36, "medium", false));
+//          
+//        Calling recursive function to populate priority queue with linked list
+//        loadRec(SLL, SLL.size());
+    }
+
+    //Recursive function to iterate through the sinly linked list and add each element to the Priority Queue
+    public static void loadRec(LinkedListInterface myList, int x) {
+        if (x == 0) {
+            return;
+        }
+        Person temp = (Person) myList.get(x - 1);
+        PQ.enqueue(temp);
+        loadRec(myList, x - 1);
     }
 
     /**
@@ -236,7 +254,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
                 String priority = (String) cmbPriority.getSelectedItem();
                 boolean hospitalWard = chkHospitalWard.isSelected();
 
-                Person newPatient = new Person(firstName, lastName, email, GPdetails ,age, priority, hospitalWard);
+                Person newPatient = new Person(firstName, lastName, email, GPdetails, age, priority, hospitalWard);
 
                 SLL.add(newPatient);
                 PQ.enqueue(newPatient);
@@ -248,6 +266,30 @@ public class SchedulerGUI extends javax.swing.JFrame {
 
         }
 
+        try {
+            File l;
+            l = new File("LinkedList.dat");
+            File q;
+            q = new File("PriorityQueue.dat");
+            FileOutputStream fStream;
+            ObjectOutputStream oStream;
+
+            fStream = new FileOutputStream(l);
+            oStream = new ObjectOutputStream(fStream);
+
+            oStream.writeObject(SLL);
+            oStream.close();
+
+            fStream = new FileOutputStream(q);
+            oStream = new ObjectOutputStream(fStream);
+
+            oStream.writeObject(PQ);
+            oStream.close();
+
+            System.out.println("Patient added succesfully!\n");
+        } catch (IOException e) {
+            System.out.println("Patient was not saved" + e);
+        }
 
     }//GEN-LAST:event_addBTNActionPerformed
 
@@ -270,6 +312,33 @@ public class SchedulerGUI extends javax.swing.JFrame {
             if (answer.equalsIgnoreCase("no")) {
                 ST.push(temp);
                 JOptionPane.showMessageDialog(null, temp.getfName() + " Patient absence noted");
+
+                try {
+                    File s;
+                    s = new File("AStack.dat");
+                    
+                    FileOutputStream fStream;
+                    ObjectOutputStream oStream;
+
+                    fStream = new FileOutputStream(s);
+                    oStream = new ObjectOutputStream(fStream);
+
+                    oStream.writeObject(ST);
+                    oStream.close();
+                    File q;
+                    q = new File("PriorityQueue.dat");
+
+                    fStream = new FileOutputStream(q);
+                    oStream = new ObjectOutputStream(fStream);
+
+                    oStream.writeObject(PQ);
+                    oStream.close();
+
+                    System.out.println("Patient added succesfully to blackList\n");
+                } catch (IOException e) {
+                    System.out.println("Patient was not saved" + e);
+                }
+
             } else {
                 JOptionPane.showMessageDialog(null, temp.getfName() + " attended their appointment.");
             }

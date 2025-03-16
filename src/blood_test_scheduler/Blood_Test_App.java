@@ -14,11 +14,9 @@ public class Blood_Test_App {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        
+        //App will just diplay the GUI
         SchedulerGUI SG = new SchedulerGUI();
         SG.setVisible(true);
-        // Assuming PQ is your priority queue instance
         
         
     }

@@ -13,6 +13,7 @@ import java.io.Serializable;
 public class SinglyLinked_List implements LinkedListInterface, Serializable {
     
     //This class will be used to store the data of every single patient, regardless of their priority or attendance.
+    //Uses all the same functions for the SLL's covered in class
     
     int size;
     Person curr, prev, head;

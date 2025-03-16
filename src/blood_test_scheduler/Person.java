@@ -4,11 +4,13 @@
  */
 package blood_test_scheduler;
 
+import java.io.Serializable;
+
 /**
  * @author AndrePontDeAnda - x23164034
  * 15/03/2025
  */
-public class Person {
+public class Person implements Serializable{
     
     //The Person class will be used as a Node for every ADT, for sinly linked lists it uses the next and function as well
     //It stores all of the nessesary data for a patient
@@ -119,8 +121,10 @@ public class Person {
         return fName + ", " + lName + ", email=" + email + ", hospitalWard:" + hospitalWard + ", age:" + age + ", priority:" + priority;
     }
     
+    
+    //Different toString method to include GPDetails to try to not add to much information when showing the queue
     public String toStringWgp() {
-        return fName + ", " + lName + ", email="  +email + "\n GP Details: "+ GPDetails+ "\n"+ ", hospitalWard:" + hospitalWard + ", age:" + age + ", priority:" + priority;
+        return fName + ", " + lName + ", email="  +email + "\n GP Details: "+ GPDetails+ "\n"+ "hospitalWard:" + hospitalWard + ", age:" + age + ", priority:" + priority +"\n";
     }
 
     

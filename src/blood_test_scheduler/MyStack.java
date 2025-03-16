@@ -4,13 +4,14 @@
  */
 package blood_test_scheduler;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * @author AndrePontDeAnda - x23164034
  * 15/03/2025
  */
-public class MyStack implements StackInterface{
+public class MyStack implements StackInterface, Serializable{
     
     //The stack class will be used to store only the last 5 people that have not attended their appointment.
     
