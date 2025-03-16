@@ -42,21 +42,22 @@ public class SchedulerGUI extends javax.swing.JFrame {
     }
 
     public void Loadpatients() {
-        SLL.add(new Person("Andre", "Pont", "ap@gmail.com", 22, "urgent", false));
-        SLL.add(new Person("Adrian", "Rey", "ar@gmail.com", 23, "low", true));
-        SLL.add(new Person("Elena", "Martinez", "em@gmail.com", 67, "medium", false));
-        SLL.add(new Person("Lucas", "Fernandez", "lf@gmail.com", 45, "low", true));
-        SLL.add(new Person("Emma", "Thompson", "et@gmail.com", 55, "urgent", false));
-        SLL.add(new Person("Jorge", "Lopez", "jl@gmail.com", 30, "medium", true));
-        SLL.add(new Person("Sophia", "Garcia", "sg@gmail.com", 70, "low", false));
-        SLL.add(new Person("Daniel", "Smith", "ds@gmail.com", 60, "urgent", true));
-        SLL.add(new Person("Olivia", "Brown", "ob@gmail.com", 40, "medium", false));
-        SLL.add(new Person("Henry", "Wilson", "hw@gmail.com", 50, "low", true));
-        SLL.add(new Person("Isabella", "Hernandez", "ih@gmail.com", 33, "urgent", false));
-        SLL.add(new Person("William", "Taylor", "wt@gmail.com", 28, "medium", true));
-        SLL.add(new Person("Charlotte", "White", "cw@gmail.com", 72, "low", false));
-        SLL.add(new Person("James", "Clark", "jc@gmail.com", 48, "urgent", true));
-        SLL.add(new Person("Lucas", "Miller", "lm@gmail.com", 36, "medium", false));
+        SLL.add(new Person("Andre", "Pont", "ap@gmail.com", "Dr. Smith", 22, "urgent", false));
+        SLL.add(new Person("Adrian", "Rey", "ar@gmail.com", "Dr. Johnson", 23, "low", true));
+        SLL.add(new Person("Elena", "Martinez", "em@gmail.com", "Dr. Thompson", 67, "medium", false));
+        SLL.add(new Person("Lucas", "Fernandez", "lf@gmail.com", "Dr. Garcia", 45, "low", true));
+        SLL.add(new Person("Emma", "Thompson", "et@gmail.com", "Dr. Brown", 55, "urgent", false));
+        SLL.add(new Person("Jorge", "Lopez", "jl@gmail.com", "Dr. White", 30, "medium", true));
+        SLL.add(new Person("Sophia", "Garcia", "sg@gmail.com", "Dr. Wilson", 70, "low", false));
+        SLL.add(new Person("Daniel", "Smith", "ds@gmail.com", "Dr. Martinez", 60, "urgent", true));
+        SLL.add(new Person("Olivia", "Brown", "ob@gmail.com", "Dr. Taylor", 40, "medium", false));
+        SLL.add(new Person("Henry", "Wilson", "hw@gmail.com", "Dr. Clark", 50, "low", true));
+        SLL.add(new Person("Isabella", "Hernandez", "ih@gmail.com", "Dr. Hernandez", 33, "urgent", false));
+        SLL.add(new Person("William", "Taylor", "wt@gmail.com", "Dr. Lopez", 28, "medium", true));
+        SLL.add(new Person("Charlotte", "White", "cw@gmail.com", "Dr. Gonzalez", 72, "low", false));
+        SLL.add(new Person("James", "Clark", "jc@gmail.com", "Dr. Carter", 48, "urgent", true));
+        SLL.add(new Person("Lucas", "Miller", "lm@gmail.com", "Dr. Adams", 36, "medium", false));
+
 
         for (int i = 0; i < SLL.size(); i++) {
             Person temp = (Person) SLL.get(i);
@@ -202,6 +203,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
         JTextField fNameTF = new JTextField(15);
         JTextField lNameTF = new JTextField(15);
         JTextField emailTF = new JTextField(15);
+        JTextField GPTF = new JTextField(15);
         JTextField ageTF = new JTextField(5);
         JComboBox<String> cmbPriority = new JComboBox<>(new String[]{"Urgent", "Medium", "Low"});
         JCheckBox chkHospitalWard = new JCheckBox("Comes from Hospital Ward");
@@ -213,6 +215,8 @@ public class SchedulerGUI extends javax.swing.JFrame {
         panel.add(lNameTF);
         panel.add(new JLabel("Email:"));
         panel.add(emailTF);
+        panel.add(new JLabel("GP Details:"));
+        panel.add(GPTF);
         panel.add(new JLabel("Age:"));
         panel.add(ageTF);
         panel.add(new JLabel("Priority:"));
@@ -227,11 +231,12 @@ public class SchedulerGUI extends javax.swing.JFrame {
                 String firstName = fNameTF.getText();
                 String lastName = lNameTF.getText();
                 String email = emailTF.getText();
+                String GPdetails = GPTF.getText();
                 int age = Integer.parseInt(ageTF.getText());
                 String priority = (String) cmbPriority.getSelectedItem();
                 boolean hospitalWard = chkHospitalWard.isSelected();
 
-                Person newPatient = new Person(firstName, lastName, email, age, priority, hospitalWard);
+                Person newPatient = new Person(firstName, lastName, email, GPdetails ,age, priority, hospitalWard);
 
                 SLL.add(newPatient);
                 PQ.enqueue(newPatient);

@@ -24,9 +24,6 @@ public class PriorityQueue implements PQInterface {
 
         int priVal = 0;
 
-        //Age factor, Older people get higher priority
-        priVal += person.getAge();
-
         //Urgency level factor
         switch (person.getPriority().toLowerCase()) {
             case "urgent":
@@ -42,7 +39,7 @@ public class PriorityQueue implements PQInterface {
 
         //Hospital ward status, the most points are given to who comes from the hospital ward.
         if (person.isHospitalWard()) {
-            priVal += 100;
+            priVal += 10;
         }
 
         return priVal;
@@ -52,14 +49,21 @@ public class PriorityQueue implements PQInterface {
     public int getIndex(Person person) {
         int priorityVal = getValues(person);
         int index;
-        
+
         for (index = 0; index < people.size(); index++) {
             Person current = people.get(index);
             int currentVal = getValues(current);
-            
+
             if (priorityVal > currentVal) {
                 return index;
             }
+
+            if (priorityVal == currentVal) {
+                if (person.getAge() > current.getAge()) {
+                    return index;
+                }
+            }
+
         }
 
         //Return if there was no lower score than current value

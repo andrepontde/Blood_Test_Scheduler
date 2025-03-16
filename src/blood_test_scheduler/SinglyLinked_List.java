@@ -107,7 +107,7 @@ public class SinglyLinked_List implements LinkedListInterface, Serializable {
         curr = head;
         
         while (curr != null) {
-            details = details + curr.toString() + "\n";
+            details = details + curr.toStringWgp() + "\n";
             curr = curr.getNext();
         }
 

@@ -28,13 +28,14 @@ public class Person {
     priority = "low";
     }
     
-    public Person(String fName, String lName, String email, int age, String priority, boolean ward) {
+    public Person(String fName, String lName, String email, String GPDetails,int age, String priority, boolean ward) {
         this.fName = fName;
         this.lName = lName;
         this.email = email;
         this.age = age;
         this.priority = priority;
         hospitalWard = ward;
+        this.GPDetails = GPDetails;
     }
 
     public Person(Person next, Person prev) {
@@ -115,7 +116,11 @@ public class Person {
 
     @Override
     public String toString() {
-        return fName + ", " + lName + ", email=" + email + ", GPDetails=" + GPDetails + ", hospitalWard:" + hospitalWard + ", age:" + age + ", priority:" + priority;
+        return fName + ", " + lName + ", email=" + email + ", hospitalWard:" + hospitalWard + ", age:" + age + ", priority:" + priority;
+    }
+    
+    public String toStringWgp() {
+        return fName + ", " + lName + ", email="  +email + "\n GP Details: "+ GPDetails+ "\n"+ ", hospitalWard:" + hospitalWard + ", age:" + age + ", priority:" + priority;
     }
 
     
